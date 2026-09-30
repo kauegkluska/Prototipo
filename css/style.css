@@ -321,7 +321,7 @@ p { text-wrap: pretty; }
   }
   .site-nav li + li { border-top: 1px solid rgba(255, 255, 255, .08); }
   .site-nav a { height: auto; padding-block: .95rem; font-size: 1.0625rem; }
-  .site-nav a[aria-current]::after { top: 50%; bottom: auto; left: auto; right: 0; width: .5rem; height: .5rem; margin-top: -.25rem; }
+  .site-nav a[aria-current]::after { top: 50%; bottom: auto; left: auto; right: 0; width: .5rem; height: .5rem; margin-top: -.25rem; border-radius: 50%; }
 
   /* sem JavaScript o menu fica sempre visível */
   .no-js .menu-toggle { display: none; }
@@ -862,6 +862,7 @@ p { text-wrap: pretty; }
   content: "";
   width: .5rem;
   height: .5rem;
+  border-radius: 50%;
   background: currentColor;
 }
 .status--open { color: var(--aberto); }
