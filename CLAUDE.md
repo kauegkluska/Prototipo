@@ -21,7 +21,7 @@ Todo o conteúdo é em português do Brasil.
     - `noticia-*.jpg`: as três fotos das notícias.
     - `cartaz-*.jpg`: fundos dos cartazes das competições.
     - `galeria-*.jpg`: as seis fotos da galeria, a maioria paisagens de serra com araucárias.
-  - Ilustrações dos produtos (`produto-*.jpg`): desenhos feitos em SVG com o brasão real, não são fotos. Têm 800×800 e fundo branco puro (#FFF), e as fotos reais que entrarem no lugar devem seguir o mesmo formato: no tablet a foto fica numa moldura branca mais larga que ela (`object-fit: contain`), e só um fundo branco puro esconde a emenda.
+    - `produto-*.jpg`: fotos dos produtos, 800×800, recortadas ao centro (`object-fit: cover`; no tablet, em 16:10). Não mostram os produtos do clube: o boné é cinza e o moletom é verde, ao contrário das descrições. O usuário não quer ilustrações geradas no lugar delas.
 - `_v1/`: versão antiga, feita em Tailwind com outras fontes. Serve só de referência: não editar nem copiar estilos dela.
 
 O site é estático: HTML, CSS e JS puros, sem build, framework ou dependências. Para ver, basta abrir o `index.html` no navegador.
@@ -32,7 +32,7 @@ O site é estático: HTML, CSS e JS puros, sem build, framework ou dependências
    - A foto vai do topo do hero até a serra, colada na borda direita, com largura `--foto-w` (58%, no máximo 50rem: a foto tem só 640px de largura). O recorte (`object-position`) guarda o boné, a pistola e as araucárias, e o degradê da esquerda cai nas costas do atirador. O usuário prefere o degradê (`.hero__media::after`): a foto se desfaz no verde à esquerda, onde está o texto, em cima, junto ao cabeçalho, e embaixo, sob o próximo evento e a serra. Não trocar por foto com borda reta. O texto pode entrar no começo do degradê (`padding-right` do `.hero__body`).
    - A serra é o perfil da montanha do brasão: camada de trás em `--pinho`, a da frente em `--geada` (a cor da página, então a seção seguinte começa "na neve") e os fios das encostas em `--pinho`, como no desenho do brasão. Usa `preserveAspectRatio="xMidYMax slice"`: no celular corta as pontas e mantém o pico principal. O desenho foi achatado para 70% a pedido do usuário, para o hero não ficar apertado, e a base lisa de neve foi cortada (viewBox 1440×100; os caminhos descem até 112 e o excesso some). A primeira seção depois do hero tem margem de cima menor (`.hero + .section`), para não sobrar muito branco liso sob as montanhas. Para mudar a altura, mexer no desenho e no `--ridge-h` juntos: só baixar o `--ridge-h` corta os picos, por causa do `slice`.
    - Até 899px, o botão "Ver competição" desce para uma linha própria.
-   - Até 719px, a foto vira uma faixa no topo que escurece embaixo, e a primeira linha do nome sobe para a parte escura.
+   - Até 719px, a foto vira uma faixa no topo que escurece embaixo, e a primeira linha do nome sobe para a parte escura. Foto, nome e botões ficam num bloco (`.hero__first`, que no desktop é `display: contents`) com a altura da primeira tela (`100svh` menos o cabeçalho): a foto fica com a altura que sobra, então os dois botões aparecem em qualquer altura de celular e o próximo evento começa logo abaixo da dobra.
    - Até 639px, o texto de apoio mostra só a primeira frase (a segunda fica em `.hero__lead-more`) e a data do próximo evento fica empilhada.
 2. **Próximas competições** (`#competicoes`): lista de provas, no padrão data | cartaz | texto | status.
    - O cartaz (`.poster`) é HTML: foto escurecida, filete de ouro em cima, modalidade em ouro e o nome curto da prova em caixa alta condensada. É decorativo (`aria-hidden`).
@@ -44,14 +44,14 @@ O site é estático: HTML, CSS e JS puros, sem build, framework ou dependências
    - embaixo, pista de ar e tiro ao prato em duas colunas iguais, as duas fotos em 4:3. Até 719px, viram um carrossel de arrastar, só com CSS (scroll-snap): a faixa vai até a borda da tela e o segundo cartão aparece pela metade.
    - Até 899px, o título abre a seção, antes da foto (áreas da grade em `.about`).
 5. **Últimas notícias** (`#noticias`).
-6. **Galeria** (`#galeria`).
-7. **Produtos do clube** (`#produtos`; no menu, "Produtos", entre "Notícias" e "Fale conosco", na ordem dos requisitos). Fica no fim da página, antes do contato, porque é secundária ao que é do clube (provas, filiação, estrutura, notícias) e o pedido é feito com a secretaria.
+6. **Produtos do clube** (`#produtos`; no menu, "Produtos", entre "Notícias" e "Fale conosco", na ordem dos requisitos). Fica depois das notícias e antes da galeria, a pedido do usuário. Fundo branco (`.section--white`), e a galeria passou para o fundo `--geada`, para manter a alternância.
    - Vitrine de quatro produtos em colunas iguais (`.products` > `.product`): foto, nome, descrição e, na base, preço e disponibilidade (`.status`, como nas competições), tamanhos e o botão "Pedir pelo WhatsApp". Um fio separa a descrição da compra. Preço, tamanhos e botão ficam alinhados entre os vizinhos: produto sem tamanhos mostra "Tamanho único" na mesma altura.
    - O preço usa o número condensado das datas das competições.
    - Tamanhos são rádios (`.product__sizes`); tamanho esgotado fica `disabled` e riscado na diagonal.
    - O botão abre o WhatsApp da secretaria com a mensagem "Olá! Quero fazer um pedido: [produto], tamanho [X] ([preço])." O `main.js` monta o texto com `data-produto`, `data-preco` e o tamanho marcado. Sem JavaScript, o `href` do HTML já leva produto e preço.
-   - De 720 a 1099px, duas colunas com moldura 16:10 (a foto quadrada inteira dentro dela). Até 719px, carrossel de arrastar como o das pistas, com o próximo cartão aparecendo.
+   - De 720 a 1099px, duas colunas com foto recortada em 16:10. Até 719px, carrossel de arrastar como o das pistas, com o próximo cartão aparecendo.
    - O cartão tem `position: relative` de propósito: os textos só para leitor de tela (`.visually-hidden`) precisam ficar presos nele, senão escapam da rolagem do carrossel e alargam a página no celular.
+7. **Galeria** (`#galeria`).
 8. **Fale conosco** (`#contato`, fundo branco): contatos, mapa e "Como chegar".
 9. **Rodapé**: navegação, modalidades, horário e o lema "Brasil acima de tudo! Deus acima de todos!".
 
@@ -103,7 +103,7 @@ O site é estático: HTML, CSS e JS puros, sem build, framework ou dependências
 ## Ainda são conteúdo provisório (confirmar antes de publicar)
 
 - Todas as provas da lista de competições, as notícias e o próximo evento (18/10/2026).
-- Todos os produtos: nomes, descrições, preços, tamanhos, disponibilidade e as ilustrações (`produto-*.jpg`), que devem virar fotos reais. Os pedidos vão para o WhatsApp da secretaria, que também é provisório.
+- Todos os produtos: nomes, descrições, preços, tamanhos, disponibilidade e as fotos (`produto-*.jpg`, de banco), que devem virar fotos reais dos produtos. Os pedidos vão para o WhatsApp da secretaria, que também é provisório.
 - Autorização do atleta que aparece na foto do hero (`atirador.jpg`), que dá para reconhecer mesmo de costas.
 - Imagens:
   - as notícias, os cartazes e a galeria usam fotos de banco, não do clube. O ideal é trocar por fotos reais, principalmente na galeria ("Momentos do Caminhos da Neve").

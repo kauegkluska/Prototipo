@@ -69,20 +69,23 @@
 
   <!-- Hero: a foto é a vista por trás de um atirador na linha de tiro; embaixo, o próximo evento e a serra -->
   <section class="hero" id="inicio" aria-labelledby="hero-titulo">
-    <div class="hero__media">
-      <img class="hero__photo" src="img/atirador.jpg" width="640" height="1138" fetchpriority="high"
-           alt="Atirador de costas, com boné e abafador, mirando com uma pistola na pista outdoor, com araucárias ao fundo">
-    </div>
+    <!-- a primeira tela do celular: foto, nome e botões -->
+    <div class="hero__first">
+      <div class="hero__media">
+        <img class="hero__photo" src="img/atirador.jpg" width="640" height="1138" fetchpriority="high"
+             alt="Atirador de costas, com boné e abafador, mirando com uma pistola na pista outdoor, com araucárias ao fundo">
+      </div>
 
-    <div class="wrap hero__body">
-      <h1 class="hero__title" id="hero-titulo">
-        <span class="hero__name">Caminhos<br>da Neve</span>
-        <span class="hero__kind">Clube de tiro</span>
-      </h1>
-      <p class="hero__lead">Tiro esportivo em São Joaquim, na serra catarinense.<span class="hero__lead-more"> Pistas outdoor, tiro ao prato, pista indoor de ar e pista de precisão de 100&nbsp;m.</span></p>
-      <div class="hero__actions">
-        <a class="btn btn--gold" href="#competicoes">Ver calendário de provas</a>
-        <a class="btn btn--ghost" href="#sobre">Conheça o clube</a>
+      <div class="wrap hero__body">
+        <h1 class="hero__title" id="hero-titulo">
+          <span class="hero__name">Caminhos<br>da Neve</span>
+          <span class="hero__kind">Clube de tiro</span>
+        </h1>
+        <p class="hero__lead">Tiro esportivo em São Joaquim, na serra catarinense.<span class="hero__lead-more"> Pistas outdoor, tiro ao prato, pista indoor de ar e pista de precisão de 100&nbsp;m.</span></p>
+        <div class="hero__actions">
+          <a class="btn btn--gold" href="#competicoes">Ver calendário de provas</a>
+          <a class="btn btn--ghost" href="#sobre">Conheça o clube</a>
+        </div>
       </div>
     </div>
 
@@ -312,8 +315,97 @@
     </div>
   </section>
 
+  <!-- Produtos: o pedido vai pelo WhatsApp da secretaria, com o produto, o tamanho e o preço na mensagem (main.js) -->
+  <section class="section section--white" id="produtos" aria-labelledby="produtos-titulo">
+    <div class="wrap">
+      <header class="section-head">
+        <h2 id="produtos-titulo">Produtos do clube</h2>
+        <p>Camisetas, bonés e acessórios com o brasão do clube. Escolha o tamanho e faça o pedido pelo WhatsApp.</p>
+        <a class="link section-head__link" href="#">Ver todos os produtos</a>
+      </header>
+
+      <ul class="products">
+        <li class="product" data-produto="Camiseta oficial" data-preco="R$ 79,90">
+          <img class="product__photo" src="img/produto-camiseta.jpg" width="800" height="800" loading="lazy"
+               alt="Camisetas verdes penduradas em cabides de madeira">
+          <h3 class="product__name">Camiseta oficial</h3>
+          <p class="product__desc">Verde, com o brasão do clube estampado no peito.</p>
+          <div class="product__offer">
+            <p class="product__price">R$ <span>79,90</span></p>
+            <p class="status status--open">Disponível</p>
+          </div>
+          <fieldset class="product__sizes">
+            <legend class="visually-hidden">Tamanho</legend>
+            <label><input type="radio" name="tamanho-camiseta" value="P"><span>P</span></label>
+            <label><input type="radio" name="tamanho-camiseta" value="M"><span>M</span></label>
+            <label><input type="radio" name="tamanho-camiseta" value="G"><span>G</span></label>
+            <label title="Esgotado"><input type="radio" name="tamanho-camiseta" value="GG" disabled><span>GG<span class="visually-hidden">, esgotado</span></span></label>
+          </fieldset>
+          <a class="btn btn--green product__order" href="https://wa.me/5549998242016?text=Ol%C3%A1!%20Quero%20fazer%20um%20pedido%3A%20Camiseta%20oficial%20(R%24%2079%2C90)." target="_blank" rel="noopener noreferrer">
+            <svg class="icon" aria-hidden="true"><use href="#i-whatsapp"/></svg>
+            Pedir pelo WhatsApp<span class="visually-hidden">: Camiseta oficial</span>
+          </a>
+        </li>
+
+        <li class="product" data-produto="Boné" data-preco="R$ 69,90">
+          <img class="product__photo" src="img/produto-bone.jpg" width="800" height="800" loading="lazy"
+               alt="Boné cinza de algodão lavado sobre uma mesa branca">
+          <h3 class="product__name">Boné</h3>
+          <p class="product__desc">Verde-escuro, com o brasão bordado na frente.</p>
+          <div class="product__offer">
+            <p class="product__price">R$ <span>69,90</span></p>
+            <p class="status status--few">Últimas unidades</p>
+          </div>
+          <p class="product__single">Tamanho único</p>
+          <a class="btn btn--green product__order" href="https://wa.me/5549998242016?text=Ol%C3%A1!%20Quero%20fazer%20um%20pedido%3A%20Bon%C3%A9%20(R%24%2069%2C90)." target="_blank" rel="noopener noreferrer">
+            <svg class="icon" aria-hidden="true"><use href="#i-whatsapp"/></svg>
+            Pedir pelo WhatsApp<span class="visually-hidden">: Boné</span>
+          </a>
+        </li>
+
+        <li class="product" data-produto="Moletom com capuz" data-preco="R$ 189,90">
+          <img class="product__photo" src="img/produto-moletom.jpg" width="800" height="800" loading="lazy"
+               alt="Homem de perfil usando um moletom verde com o capuz na cabeça">
+          <h3 class="product__name">Moletom com capuz</h3>
+          <p class="product__desc">Cinza mescla, com bolso canguru e brasão bordado.</p>
+          <div class="product__offer">
+            <p class="product__price">R$ <span>189,90</span></p>
+            <p class="status">Sob encomenda</p>
+          </div>
+          <fieldset class="product__sizes">
+            <legend class="visually-hidden">Tamanho</legend>
+            <label><input type="radio" name="tamanho-moletom" value="P"><span>P</span></label>
+            <label><input type="radio" name="tamanho-moletom" value="M"><span>M</span></label>
+            <label><input type="radio" name="tamanho-moletom" value="G"><span>G</span></label>
+            <label><input type="radio" name="tamanho-moletom" value="GG"><span>GG</span></label>
+          </fieldset>
+          <a class="btn btn--green product__order" href="https://wa.me/5549998242016?text=Ol%C3%A1!%20Quero%20fazer%20um%20pedido%3A%20Moletom%20com%20capuz%20(R%24%20189%2C90)." target="_blank" rel="noopener noreferrer">
+            <svg class="icon" aria-hidden="true"><use href="#i-whatsapp"/></svg>
+            Pedir pelo WhatsApp<span class="visually-hidden">: Moletom com capuz</span>
+          </a>
+        </li>
+
+        <li class="product" data-produto="Patch do brasão" data-preco="R$ 29,90">
+          <img class="product__photo" src="img/produto-patch.jpg" width="800" height="800" loading="lazy"
+               alt="Patch bordado preso com velcro numa mochila camuflada">
+          <h3 class="product__name">Patch do brasão</h3>
+          <p class="product__desc">Bordado, com velcro para mochila, boné ou colete.</p>
+          <div class="product__offer">
+            <p class="product__price">R$ <span>29,90</span></p>
+            <p class="status status--open">Disponível</p>
+          </div>
+          <p class="product__single">Tamanho único</p>
+          <a class="btn btn--green product__order" href="https://wa.me/5549998242016?text=Ol%C3%A1!%20Quero%20fazer%20um%20pedido%3A%20Patch%20do%20bras%C3%A3o%20(R%24%2029%2C90)." target="_blank" rel="noopener noreferrer">
+            <svg class="icon" aria-hidden="true"><use href="#i-whatsapp"/></svg>
+            Pedir pelo WhatsApp<span class="visually-hidden">: Patch do brasão</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </section>
+
   <!-- Galeria -->
-  <section class="section section--white" id="galeria" aria-labelledby="galeria-titulo">
+  <section class="section" id="galeria" aria-labelledby="galeria-titulo">
     <div class="wrap">
       <header class="section-head">
         <h2 id="galeria-titulo">Momentos do Caminhos da Neve</h2>
@@ -350,95 +442,6 @@
           <figcaption>Araucária no campo</figcaption>
         </figure>
       </div>
-    </div>
-  </section>
-
-  <!-- Produtos: o pedido vai pelo WhatsApp da secretaria, com o produto, o tamanho e o preço na mensagem (main.js) -->
-  <section class="section" id="produtos" aria-labelledby="produtos-titulo">
-    <div class="wrap">
-      <header class="section-head">
-        <h2 id="produtos-titulo">Produtos do clube</h2>
-        <p>Camisetas, bonés e acessórios com o brasão do clube. Escolha o tamanho e faça o pedido pelo WhatsApp.</p>
-        <a class="link section-head__link" href="#">Ver todos os produtos</a>
-      </header>
-
-      <ul class="products">
-        <li class="product" data-produto="Camiseta oficial" data-preco="R$ 79,90">
-          <img class="product__photo" src="img/produto-camiseta.jpg" width="800" height="800" loading="lazy"
-               alt="Camiseta verde com o brasão do clube estampado no peito">
-          <h3 class="product__name">Camiseta oficial</h3>
-          <p class="product__desc">Verde, com o brasão do clube estampado no peito.</p>
-          <div class="product__offer">
-            <p class="product__price">R$ <span>79,90</span></p>
-            <p class="status status--open">Disponível</p>
-          </div>
-          <fieldset class="product__sizes">
-            <legend class="visually-hidden">Tamanho</legend>
-            <label><input type="radio" name="tamanho-camiseta" value="P"><span>P</span></label>
-            <label><input type="radio" name="tamanho-camiseta" value="M"><span>M</span></label>
-            <label><input type="radio" name="tamanho-camiseta" value="G"><span>G</span></label>
-            <label title="Esgotado"><input type="radio" name="tamanho-camiseta" value="GG" disabled><span>GG<span class="visually-hidden">, esgotado</span></span></label>
-          </fieldset>
-          <a class="btn btn--green product__order" href="https://wa.me/5549998242016?text=Ol%C3%A1!%20Quero%20fazer%20um%20pedido%3A%20Camiseta%20oficial%20(R%24%2079%2C90)." target="_blank" rel="noopener noreferrer">
-            <svg class="icon" aria-hidden="true"><use href="#i-whatsapp"/></svg>
-            Pedir pelo WhatsApp<span class="visually-hidden">: Camiseta oficial</span>
-          </a>
-        </li>
-
-        <li class="product" data-produto="Boné" data-preco="R$ 69,90">
-          <img class="product__photo" src="img/produto-bone.jpg" width="800" height="800" loading="lazy"
-               alt="Boné verde-escuro com o brasão do clube bordado na frente">
-          <h3 class="product__name">Boné</h3>
-          <p class="product__desc">Verde-escuro, com o brasão bordado na frente.</p>
-          <div class="product__offer">
-            <p class="product__price">R$ <span>69,90</span></p>
-            <p class="status status--few">Últimas unidades</p>
-          </div>
-          <p class="product__single">Tamanho único</p>
-          <a class="btn btn--green product__order" href="https://wa.me/5549998242016?text=Ol%C3%A1!%20Quero%20fazer%20um%20pedido%3A%20Bon%C3%A9%20(R%24%2069%2C90)." target="_blank" rel="noopener noreferrer">
-            <svg class="icon" aria-hidden="true"><use href="#i-whatsapp"/></svg>
-            Pedir pelo WhatsApp<span class="visually-hidden">: Boné</span>
-          </a>
-        </li>
-
-        <li class="product" data-produto="Moletom com capuz" data-preco="R$ 189,90">
-          <img class="product__photo" src="img/produto-moletom.jpg" width="800" height="800" loading="lazy"
-               alt="Moletom cinza com capuz, bolso canguru e o brasão do clube bordado no peito">
-          <h3 class="product__name">Moletom com capuz</h3>
-          <p class="product__desc">Cinza mescla, com bolso canguru e brasão bordado.</p>
-          <div class="product__offer">
-            <p class="product__price">R$ <span>189,90</span></p>
-            <p class="status">Sob encomenda</p>
-          </div>
-          <fieldset class="product__sizes">
-            <legend class="visually-hidden">Tamanho</legend>
-            <label><input type="radio" name="tamanho-moletom" value="P"><span>P</span></label>
-            <label><input type="radio" name="tamanho-moletom" value="M"><span>M</span></label>
-            <label><input type="radio" name="tamanho-moletom" value="G"><span>G</span></label>
-            <label><input type="radio" name="tamanho-moletom" value="GG"><span>GG</span></label>
-          </fieldset>
-          <a class="btn btn--green product__order" href="https://wa.me/5549998242016?text=Ol%C3%A1!%20Quero%20fazer%20um%20pedido%3A%20Moletom%20com%20capuz%20(R%24%20189%2C90)." target="_blank" rel="noopener noreferrer">
-            <svg class="icon" aria-hidden="true"><use href="#i-whatsapp"/></svg>
-            Pedir pelo WhatsApp<span class="visually-hidden">: Moletom com capuz</span>
-          </a>
-        </li>
-
-        <li class="product" data-produto="Patch do brasão" data-preco="R$ 29,90">
-          <img class="product__photo" src="img/produto-patch.jpg" width="800" height="800" loading="lazy"
-               alt="Patch oval bordado com o brasão do clube e borda dourada, com o verso de velcro aparecendo atrás">
-          <h3 class="product__name">Patch do brasão</h3>
-          <p class="product__desc">Bordado, com velcro para mochila, boné ou colete.</p>
-          <div class="product__offer">
-            <p class="product__price">R$ <span>29,90</span></p>
-            <p class="status status--open">Disponível</p>
-          </div>
-          <p class="product__single">Tamanho único</p>
-          <a class="btn btn--green product__order" href="https://wa.me/5549998242016?text=Ol%C3%A1!%20Quero%20fazer%20um%20pedido%3A%20Patch%20do%20bras%C3%A3o%20(R%24%2029%2C90)." target="_blank" rel="noopener noreferrer">
-            <svg class="icon" aria-hidden="true"><use href="#i-whatsapp"/></svg>
-            Pedir pelo WhatsApp<span class="visually-hidden">: Patch do brasão</span>
-          </a>
-        </li>
-      </ul>
     </div>
   </section>
 
