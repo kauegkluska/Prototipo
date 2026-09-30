@@ -42,6 +42,23 @@ document.addEventListener('DOMContentLoaded', () => {
     else el.hidden = true;
   });
 
+  // Produtos: o pedido abre o WhatsApp da secretaria com o produto, o tamanho escolhido e o preço.
+  // Sem JavaScript, o link do HTML já leva o produto e o preço, só sem o tamanho.
+  document.querySelectorAll('.product').forEach((product) => {
+    const order = product.querySelector('.product__order');
+    const chat = order.href.split('?')[0];
+
+    const update = () => {
+      const size = product.querySelector('.product__sizes input:checked');
+      const item = size ? `${product.dataset.produto}, tamanho ${size.value}` : product.dataset.produto;
+      const text = `Olá! Quero fazer um pedido: ${item} (${product.dataset.preco}).`;
+      order.href = `${chat}?text=${encodeURIComponent(text)}`;
+    };
+
+    product.addEventListener('change', update);
+    update();
+  });
+
   // Destaca no menu a seção visível
   const targets = navLinks
     .map((link) => ({ link, section: document.querySelector(link.getAttribute('href')) }))

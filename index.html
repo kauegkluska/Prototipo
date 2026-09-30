@@ -8,7 +8,7 @@
 <meta name="theme-color" content="#0E2C22">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&amp;display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&amp;family=Piazzolla:opsz,wght@8..30,600..700&amp;display=swap">
 <link rel="stylesheet" href="css/style.css">
 <script src="js/main.js" defer></script>
 </head>
@@ -47,6 +47,7 @@
         <li><a href="#proximo-evento">Calendário</a></li>
         <li><a href="#galeria">Galeria</a></li>
         <li><a href="#noticias">Notícias</a></li>
+        <li><a href="#produtos">Produtos</a></li>
         <li><a href="#contato">Fale conosco</a></li>
         <li class="site-nav__login"><a href="#"><svg class="icon" aria-hidden="true"><use href="#i-user"/></svg>Área do atleta</a></li>
       </ul>
@@ -66,10 +67,12 @@
 
 <main id="conteudo">
 
-  <!-- Hero: a faixa do próximo evento faz parte da própria foto -->
+  <!-- Hero: a foto é a vista por trás de um atirador na linha de tiro; embaixo, o próximo evento e a serra -->
   <section class="hero" id="inicio" aria-labelledby="hero-titulo">
-    <img class="hero__photo" src="img/hero.jpg" width="1920" height="1080" fetchpriority="high"
-         alt="Mão segurando uma espingarda aberta, com fumaça saindo dos canos logo após o disparo">
+    <div class="hero__media">
+      <img class="hero__photo" src="img/atirador.jpg" width="640" height="1138" fetchpriority="high"
+           alt="Atirador de costas, com boné e abafador, mirando com uma pistola na pista outdoor, com araucárias ao fundo">
+    </div>
 
     <div class="wrap hero__body">
       <h1 class="hero__title" id="hero-titulo">
@@ -83,7 +86,7 @@
       </div>
     </div>
 
-    <div class="wrap">
+    <div class="wrap hero__event">
       <article class="next-event" id="proximo-evento" aria-labelledby="proximo-evento-titulo">
         <p class="next-event__legend">Próximo evento <span class="next-event__countdown" data-countdown="2026-10-18">em 19 dias</span></p>
 
@@ -108,11 +111,11 @@
     </div>
 
     <!-- Serra do brasão: o hero termina no perfil da montanha nevada -->
-    <svg class="hero__ridge" viewBox="0 0 1440 160" preserveAspectRatio="xMidYMax slice" aria-hidden="true" focusable="false">
-      <path class="hero__ridge-far" d="M0 160V104L90 86 160 94 250 62 300 72 360 56 420 70 480 58 820 36 880 52 960 66 1020 42 1070 54 1150 40 1330 62 1400 76 1440 72V160Z"/>
+    <svg class="hero__ridge" viewBox="0 0 1440 100" preserveAspectRatio="xMidYMax slice" aria-hidden="true" focusable="false">
+      <path class="hero__ridge-far" d="M0 112V72.8L90 60.2 160 65.8 250 43.4 300 50.4 360 39.2 420 49 480 40.6 820 25.2 880 36.4 960 46.2 1020 29.4 1070 37.8 1150 28 1330 43.4 1400 53.2 1440 50.4V112Z"/>
       <g class="hero__ridge-near">
-        <path d="M0 160V128L70 120 130 124 200 108 250 112 310 96 350 100 400 84 440 90 490 66 520 72 560 50 590 56 640 16 668 34 690 28 720 56 752 50 800 78 850 70 900 92 950 84 1000 100 1040 94 1100 72 1130 78 1180 46 1210 58 1250 52 1300 80 1350 92 1400 104 1440 100V160Z"/>
-        <path class="hero__ridge-snow" d="M640 16 626 46 634 64 622 90M640 16 658 40 654 60M560 50 550 72 556 86M690 28 700 46M1180 46 1168 70 1174 86"/>
+        <path d="M0 112V89.6L70 84 130 86.8 200 75.6 250 78.4 310 67.2 350 70 400 58.8 440 63 490 46.2 520 50.4 560 35 590 39.2 640 11.2 668 23.8 690 19.6 720 39.2 752 35 800 54.6 850 49 900 64.4 950 58.8 1000 70 1040 65.8 1100 50.4 1130 54.6 1180 32.2 1210 40.6 1250 36.4 1300 56 1350 64.4 1400 72.8 1440 70V112Z"/>
+        <path class="hero__ridge-snow" d="M640 11.2 626 32.2 634 44.8 622 63M640 11.2 658 28 654 42M560 35 550 50.4 556 60.2M690 19.6 700 32.2M1180 32.2 1168 49 1174 60.2"/>
       </g>
     </svg>
   </section>
@@ -350,8 +353,97 @@
     </div>
   </section>
 
+  <!-- Produtos: o pedido vai pelo WhatsApp da secretaria, com o produto, o tamanho e o preço na mensagem (main.js) -->
+  <section class="section" id="produtos" aria-labelledby="produtos-titulo">
+    <div class="wrap">
+      <header class="section-head">
+        <h2 id="produtos-titulo">Produtos do clube</h2>
+        <p>Camisetas, bonés e acessórios com o brasão do clube. Escolha o tamanho e faça o pedido pelo WhatsApp.</p>
+        <a class="link section-head__link" href="#">Ver todos os produtos</a>
+      </header>
+
+      <ul class="products">
+        <li class="product" data-produto="Camiseta oficial" data-preco="R$ 79,90">
+          <img class="product__photo" src="img/produto-camiseta.jpg" width="800" height="800" loading="lazy"
+               alt="Camiseta verde com o brasão do clube estampado no peito">
+          <h3 class="product__name">Camiseta oficial</h3>
+          <p class="product__desc">Verde, com o brasão do clube estampado no peito.</p>
+          <div class="product__offer">
+            <p class="product__price">R$ <span>79,90</span></p>
+            <p class="status status--open">Disponível</p>
+          </div>
+          <fieldset class="product__sizes">
+            <legend class="visually-hidden">Tamanho</legend>
+            <label><input type="radio" name="tamanho-camiseta" value="P"><span>P</span></label>
+            <label><input type="radio" name="tamanho-camiseta" value="M"><span>M</span></label>
+            <label><input type="radio" name="tamanho-camiseta" value="G"><span>G</span></label>
+            <label title="Esgotado"><input type="radio" name="tamanho-camiseta" value="GG" disabled><span>GG<span class="visually-hidden">, esgotado</span></span></label>
+          </fieldset>
+          <a class="btn btn--green product__order" href="https://wa.me/5549998242016?text=Ol%C3%A1!%20Quero%20fazer%20um%20pedido%3A%20Camiseta%20oficial%20(R%24%2079%2C90)." target="_blank" rel="noopener noreferrer">
+            <svg class="icon" aria-hidden="true"><use href="#i-whatsapp"/></svg>
+            Pedir pelo WhatsApp<span class="visually-hidden">: Camiseta oficial</span>
+          </a>
+        </li>
+
+        <li class="product" data-produto="Boné" data-preco="R$ 69,90">
+          <img class="product__photo" src="img/produto-bone.jpg" width="800" height="800" loading="lazy"
+               alt="Boné verde-escuro com o brasão do clube bordado na frente">
+          <h3 class="product__name">Boné</h3>
+          <p class="product__desc">Verde-escuro, com o brasão bordado na frente.</p>
+          <div class="product__offer">
+            <p class="product__price">R$ <span>69,90</span></p>
+            <p class="status status--few">Últimas unidades</p>
+          </div>
+          <p class="product__single">Tamanho único</p>
+          <a class="btn btn--green product__order" href="https://wa.me/5549998242016?text=Ol%C3%A1!%20Quero%20fazer%20um%20pedido%3A%20Bon%C3%A9%20(R%24%2069%2C90)." target="_blank" rel="noopener noreferrer">
+            <svg class="icon" aria-hidden="true"><use href="#i-whatsapp"/></svg>
+            Pedir pelo WhatsApp<span class="visually-hidden">: Boné</span>
+          </a>
+        </li>
+
+        <li class="product" data-produto="Moletom com capuz" data-preco="R$ 189,90">
+          <img class="product__photo" src="img/produto-moletom.jpg" width="800" height="800" loading="lazy"
+               alt="Moletom cinza com capuz, bolso canguru e o brasão do clube bordado no peito">
+          <h3 class="product__name">Moletom com capuz</h3>
+          <p class="product__desc">Cinza mescla, com bolso canguru e brasão bordado.</p>
+          <div class="product__offer">
+            <p class="product__price">R$ <span>189,90</span></p>
+            <p class="status">Sob encomenda</p>
+          </div>
+          <fieldset class="product__sizes">
+            <legend class="visually-hidden">Tamanho</legend>
+            <label><input type="radio" name="tamanho-moletom" value="P"><span>P</span></label>
+            <label><input type="radio" name="tamanho-moletom" value="M"><span>M</span></label>
+            <label><input type="radio" name="tamanho-moletom" value="G"><span>G</span></label>
+            <label><input type="radio" name="tamanho-moletom" value="GG"><span>GG</span></label>
+          </fieldset>
+          <a class="btn btn--green product__order" href="https://wa.me/5549998242016?text=Ol%C3%A1!%20Quero%20fazer%20um%20pedido%3A%20Moletom%20com%20capuz%20(R%24%20189%2C90)." target="_blank" rel="noopener noreferrer">
+            <svg class="icon" aria-hidden="true"><use href="#i-whatsapp"/></svg>
+            Pedir pelo WhatsApp<span class="visually-hidden">: Moletom com capuz</span>
+          </a>
+        </li>
+
+        <li class="product" data-produto="Patch do brasão" data-preco="R$ 29,90">
+          <img class="product__photo" src="img/produto-patch.jpg" width="800" height="800" loading="lazy"
+               alt="Patch oval bordado com o brasão do clube e borda dourada, com o verso de velcro aparecendo atrás">
+          <h3 class="product__name">Patch do brasão</h3>
+          <p class="product__desc">Bordado, com velcro para mochila, boné ou colete.</p>
+          <div class="product__offer">
+            <p class="product__price">R$ <span>29,90</span></p>
+            <p class="status status--open">Disponível</p>
+          </div>
+          <p class="product__single">Tamanho único</p>
+          <a class="btn btn--green product__order" href="https://wa.me/5549998242016?text=Ol%C3%A1!%20Quero%20fazer%20um%20pedido%3A%20Patch%20do%20bras%C3%A3o%20(R%24%2029%2C90)." target="_blank" rel="noopener noreferrer">
+            <svg class="icon" aria-hidden="true"><use href="#i-whatsapp"/></svg>
+            Pedir pelo WhatsApp<span class="visually-hidden">: Patch do brasão</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </section>
+
   <!-- Contato -->
-  <section class="section" id="contato" aria-labelledby="contato-titulo">
+  <section class="section section--white" id="contato" aria-labelledby="contato-titulo">
     <div class="wrap contact">
       <div class="contact__info">
         <h2 id="contato-titulo">Fale conosco</h2>
@@ -417,6 +509,7 @@
         <li><a href="#proximo-evento">Calendário 2026</a></li>
         <li><a href="#galeria">Galeria de fotos</a></li>
         <li><a href="#noticias">Notícias e comunicados</a></li>
+        <li><a href="#produtos">Produtos do clube</a></li>
       </ul>
     </nav>
 

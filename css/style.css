@@ -1,7 +1,8 @@
 /* ==========================================================================
    Caminhos da Neve Clube de Tiro
-   Cores tiradas do brasão; tipografia única (Archivo) variando a largura:
-   condensada nos títulos, como o letreiro do brasão, e normal no texto.
+   Cores tiradas do brasão. Archivo em quase tudo, variando a largura: larga
+   e pesada no nome e nos títulos, como o letreiro do brasão; condensada nos
+   números e cartazes; normal no texto. Piazzolla só na marca do cabeçalho.
    ========================================================================== */
 
 :root {
@@ -22,20 +23,26 @@
 
   /* Tipografia */
   --font: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --font-marca: "Piazzolla", Georgia, serif;
   --step--1: .875rem;
   --step-0: 1.0625rem;
   --step-1: 1.3125rem;
   --step-2: 1.625rem;
   --step-3: clamp(2rem, 1.4rem + 2.2vw, 2.875rem);
-  --step-hero: clamp(3.75rem, min(1.6rem + 8.4vw, 15.5vh), 8.25rem);
+  /* o nome divide a largura com a foto e, na Archivo larga, "Caminhos" mede cerca
+     de 6 vezes o tamanho da letra: a escala acompanha a coluna para não invadir a foto */
+  --step-hero: clamp(2.75rem, min(7.8vw - .7rem, 12vh), 5.625rem);
   --condensada: 68%;
   --semi: 84%;
+  --larga: 125%;
 
   /* Espaço e forma */
   --wrap: 78rem;
   --gutter: clamp(1rem, 4vw, 2rem);
   --header-h: 4.5rem;
-  --ridge-h: clamp(4.5rem, min(11vw, 17vh), 12rem);
+  /* a serra é desenhada em 1440×100 (o desenho vai até 112, mas a base lisa é cortada):
+     6,95vw é a altura dela na largura toda */
+  --ridge-h: clamp(3rem, min(6.95vw, 10.7vh), 7.6rem);
   --radius: 2px;
   --ease: cubic-bezier(.2, .7, .2, 1);
 }
@@ -109,6 +116,20 @@ p { text-wrap: pretty; }
   width: 0;
   height: 0;
   overflow: hidden;
+}
+
+/* fora da tela, mas lido pelo leitor de tela */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
 }
 
 .icon {
@@ -209,14 +230,13 @@ p { text-wrap: pretty; }
 
 .brand__crest { width: auto; height: 2.75rem; }
 
-/* sozinho na linha, o nome sobe de tamanho para ter o mesmo peso do brasão */
+/* o brasão já traz o nome em caixa alta; ao lado ele vem escrito como se diz,
+   numa serifada, e a dupla funciona como assinatura */
 .brand__name {
-  font-size: 1.5rem;
-  font-stretch: var(--condensada);
-  font-weight: 750;
+  font-family: var(--font-marca);
+  font-size: 1.375rem;
+  font-weight: 650;
   line-height: 1;
-  letter-spacing: .01em;
-  text-transform: uppercase;
 }
 
 .site-nav ul { display: flex; gap: 1.6rem; }
@@ -264,7 +284,9 @@ p { text-wrap: pretty; }
 .menu-toggle[aria-expanded="true"] .icon--open { display: none; }
 .menu-toggle[aria-expanded="true"] .icon--close { display: block; }
 
-@media (max-width: 1099px) {
+/* o menu completo, com a marca e a área do atleta, precisa de uns 1160px:
+   abaixo de 1280 ele recolhe no botão */
+@media (max-width: 1279px) {
   .menu-toggle { display: grid; }
 
   .site-nav {
@@ -320,71 +342,75 @@ p { text-wrap: pretty; }
 
 /* ---------- Hero ---------- */
 
+/* A foto é a vista por trás de um atirador na linha de tiro. Ocupa o lado direito do hero,
+   de cima até a serra, e se desfaz no verde. A grade tem três faixas: texto, próximo evento e serra. */
 .hero {
+  /* com limite: a foto tem 640px de largura e não pode ser ampliada muito além disso */
+  --foto-w: min(58%, 50rem);
+  --foto-gap: clamp(2rem, 4vw, 3.5rem);
   position: relative;
   isolation: isolate;
   display: grid;
   grid-template-rows: 1fr auto auto;
+  grid-template-areas: "main" "event" "ridge";
   min-height: clamp(40rem, calc(100svh - var(--header-h)), 54rem);
   overflow: hidden;
   background: var(--pinho-900);
   color: var(--branco);
 }
 
-.hero__photo {
+.hero__media {
   position: absolute;
-  inset: 0;
-  z-index: -2;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: 42% 40%;
-  filter: saturate(.85) contrast(1.05);
+  inset: 0 0 0 auto;
+  z-index: -1;
+  width: var(--foto-w);
+  overflow: hidden;
+  background: var(--pinho-900);
 }
 
-/* escurece embaixo (faixa do evento) e em cima (continuação do cabeçalho) */
-.hero::before {
+/* degradê: a foto se desfaz no verde à esquerda (texto), em cima (continuação do
+   cabeçalho) e embaixo (próximo evento e serra) */
+.hero__media::after {
   content: "";
   position: absolute;
   inset: 0;
-  z-index: -1;
   background:
-    linear-gradient(180deg, rgba(14, 44, 34, .65) 0%, rgba(14, 44, 34, 0) 22%),
-    linear-gradient(0deg, rgba(14, 44, 34, .98) 0%, rgba(14, 44, 34, .85) 22%, rgba(14, 44, 34, 0) 50%),
-    linear-gradient(90deg, rgba(14, 44, 34, .9) 0%, rgba(14, 44, 34, .55) 40%, rgba(14, 44, 34, 0) 70%);
+    linear-gradient(180deg, rgba(14, 44, 34, .6) 0%, rgba(14, 44, 34, 0) 18%),
+    linear-gradient(0deg, rgba(14, 44, 34, .95) 0%, rgba(14, 44, 34, .8) 18%, rgba(14, 44, 34, 0) 42%),
+    linear-gradient(90deg, var(--pinho-900) 0%, var(--pinho-900) 4%, rgba(14, 44, 34, .7) 16%, rgba(14, 44, 34, 0) 45%);
 }
 
-/* no desktop a foto começa depois do título, para a arma não ficar atrás do texto */
-@media (min-width: 900px) {
-  .hero__photo {
-    left: auto;
-    width: 72%;
-    object-position: 60% 50%;
-  }
-  .hero::before {
-    background:
-      linear-gradient(180deg, rgba(14, 44, 34, .65) 0%, rgba(14, 44, 34, 0) 22%),
-      linear-gradient(0deg, rgba(14, 44, 34, .98) 0%, rgba(14, 44, 34, .85) 22%, rgba(14, 44, 34, 0) 50%),
-      linear-gradient(90deg, var(--pinho-900) 28%, rgba(14, 44, 34, .7) 38%, rgba(14, 44, 34, 0) 58%);
-  }
+.hero__photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* o recorte guarda o boné, a pistola e as araucárias; corta a mesa, que tem logos de patrocinadores.
+     O degradê da esquerda cai nas costas do atirador, a parte menos interessante da foto */
+  object-position: 50% 31%;
+  filter: saturate(.9);
 }
 
 .hero__body {
+  grid-area: main;
   align-self: end;
-  padding-top: clamp(2.5rem, 7vh, 6rem);
-  padding-bottom: clamp(1.75rem, 5vh, 4rem);
+  /* o texto pode entrar na parte da foto que já é quase só verde (o começo do degradê) */
+  padding-right: calc(min(100%, var(--wrap)) / 2 - 50% + var(--foto-w) * .8 + var(--foto-gap));
+  padding-top: clamp(2.5rem, 7vh, 5rem);
+  padding-bottom: clamp(1.5rem, 4vh, 3rem);
 }
+
+.hero__event { grid-area: event; }
 
 .hero__title { font-weight: inherit; }
 
+/* larga e pesada, sem caixa alta: firme como o letreiro do brasão, sem gritar */
 .hero__name {
   display: block;
   font-size: var(--step-hero);
-  font-stretch: 62%;
+  font-stretch: var(--larga);
   font-weight: 800;
-  line-height: .86;
-  letter-spacing: -.005em;
-  text-transform: uppercase;
+  line-height: .92;
+  letter-spacing: -.025em;
 }
 
 .hero__kind {
@@ -409,7 +435,7 @@ p { text-wrap: pretty; }
   display: flex;
   flex-wrap: wrap;
   gap: .75rem;
-  margin-top: clamp(1.5rem, 3.5vh, 2rem);
+  margin-top: clamp(2.25rem, 5.5vh, 3.25rem);
 }
 
 /* Próximo evento: faixa integrada à base do hero */
@@ -420,6 +446,7 @@ p { text-wrap: pretty; }
   align-items: center;
   column-gap: clamp(1.5rem, 3vw, 2.75rem);
   row-gap: 1.25rem;
+  padding-top: clamp(1.25rem, 3vh, 2rem);
   /* pouco respiro: a serra logo abaixo já separa o evento da página */
   padding-bottom: clamp(.75rem, 2vh, 1.25rem);
 }
@@ -474,9 +501,9 @@ p { text-wrap: pretty; }
 
 .next-event__title {
   font-size: var(--step-2);
-  font-stretch: var(--condensada);
+  font-stretch: var(--semi);
   font-weight: 700;
-  line-height: 1.1;
+  line-height: 1.12;
 }
 
 .next-event__meta {
@@ -501,6 +528,7 @@ p { text-wrap: pretty; }
    e a primeira seção começa a partir da neve. O recorte (slice) mantém a altura
    dos picos e, no celular, corta as pontas e deixa o pico principal à vista. */
 .hero__ridge {
+  grid-area: ridge;
   display: block;
   width: 100%;
   height: var(--ridge-h);
@@ -518,7 +546,7 @@ p { text-wrap: pretty; }
 }
 
 /* a base da serra já dá o respiro: a primeira seção sobe */
-.hero + .section { padding-top: clamp(2.5rem, 5vw, 4.5rem); }
+.hero + .section { padding-top: clamp(1.75rem, 3vw, 2.75rem); }
 
 /* entrada única do hero; a serra sobe junto, a camada do fundo por último */
 @media (prefers-reduced-motion: no-preference) {
@@ -533,36 +561,12 @@ p { text-wrap: pretty; }
 }
 @keyframes settle { from { transform: scale(1.05); } }
 @keyframes rise { from { opacity: 0; transform: translateY(14px); } }
-/* em unidades do viewBox (160 de altura) */
-@keyframes ridge { from { transform: translateY(34px); } }
-@keyframes ridge-far { from { transform: translateY(58px); } }
+/* em unidades do viewBox (100 de altura) */
+@keyframes ridge { from { transform: translateY(24px); } }
+@keyframes ridge-far { from { transform: translateY(40px); } }
 
-/* Tablet e celular: sem espaço ao lado da foto, ela vira uma faixa no topo,
-   com a atiradora e o prato à vista, e o texto desce para o verde liso,
-   longe do rosto dela. O nome avança sobre a borda da foto e costura as partes. */
+/* Tablet: a foto continua ao lado; o botão do evento desce para a linha de baixo */
 @media (max-width: 899px) {
-  .hero {
-    --foto: clamp(15rem, 44svh, 28rem);
-    min-height: 0;
-  }
-  .hero__photo {
-    bottom: auto;
-    height: var(--foto);
-    object-position: 60% 45%;
-  }
-  /* o verde fica sólido do fim da foto para baixo e cobre a sobra da foto
-     durante a entrada animada (scale) */
-  .hero::before {
-    background: linear-gradient(180deg,
-      rgba(14, 44, 34, .55) 0,
-      rgba(14, 44, 34, 0) calc(var(--foto) * .22),
-      rgba(14, 44, 34, 0) calc(var(--foto) * .5),
-      rgba(14, 44, 34, .82) calc(var(--foto) * .8),
-      var(--pinho-900) var(--foto));
-  }
-  /* a primeira linha do nome fica sobre a parte escurecida da foto */
-  .hero__body { padding-top: calc(var(--foto) - var(--step-hero) * 1.05); }
-
   .next-event { grid-template-columns: auto minmax(0, 1fr); }
   .next-event__cta {
     grid-column: 1 / -1;
@@ -570,6 +574,51 @@ p { text-wrap: pretty; }
     align-items: center;
     flex-wrap: wrap;
     gap: .5rem 1rem;
+  }
+}
+
+/* Celular: sem largura ao lado do texto, a foto vira uma faixa no topo que escurece
+   embaixo. A primeira linha do nome sobe para a parte escura e costura as duas partes. */
+@media (max-width: 719px) {
+  .hero {
+    --foto: clamp(16rem, 48svh, 30rem);
+    /* aqui o nome tem a largura toda da tela */
+    --step-hero: clamp(2.75rem, 11.7vw, 4rem);
+    grid-template-rows: auto auto auto auto;
+    grid-template-areas: "media" "main" "event" "ridge";
+    min-height: 0;
+  }
+  .hero__media {
+    position: relative;
+    grid-area: media;
+    inset: auto;
+    width: auto;
+    height: var(--foto);
+    /* a foto some de verdade na base (transparente sobre o verde do hero): só com a
+       camada escura, a última fileira de pixels às vezes escapa e vira uma linha clara */
+    -webkit-mask-image: linear-gradient(180deg, #000 70%, transparent 100%);
+    mask-image: linear-gradient(180deg, #000 70%, transparent 100%);
+  }
+  .hero__media::after {
+    /* a descida é longa e em curva (vários pontos): se o escuro chegar ao verde
+       de uma vez, aparece uma linha onde a foto termina */
+    background: linear-gradient(180deg,
+      rgba(14, 44, 34, .5) 0,
+      rgba(14, 44, 34, 0) 20%,
+      rgba(14, 44, 34, 0) 36%,
+      rgba(14, 44, 34, .12) 46%,
+      rgba(14, 44, 34, .3) 56%,
+      rgba(14, 44, 34, .52) 66%,
+      rgba(14, 44, 34, .72) 75%,
+      rgba(14, 44, 34, .87) 83%,
+      rgba(14, 44, 34, .96) 91%,
+      var(--pinho-900) 100%);
+  }
+  .hero__photo { object-position: 50% 27%; }
+  .hero__body {
+    margin-top: calc(var(--step-hero) * -.6);
+    padding-right: var(--gutter);
+    padding-top: 0;
   }
 }
 
@@ -584,7 +633,7 @@ p { text-wrap: pretty; }
   }
   /* a lista de pistas se repete em "Nossa estrutura": no celular fica só a frase de abertura */
   .hero__lead-more { display: none; }
-  .hero__actions { margin-top: 1.75rem; }
+  .hero__actions { margin-top: 2.25rem; }
   .hero__actions .btn { flex: 1 1 auto; }
 
   /* próximo evento: data empilhada numa coluna estreita, para o título caber em duas linhas */
@@ -631,10 +680,10 @@ p { text-wrap: pretty; }
 .contact h2,
 .join h2 {
   font-size: var(--step-3);
-  font-stretch: var(--condensada);
-  font-weight: 750;
-  line-height: 1.02;
-  letter-spacing: -.005em;
+  font-stretch: var(--larga);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -.025em;
   color: var(--pinho-900);
 }
 
@@ -786,7 +835,8 @@ p { text-wrap: pretty; }
   background: currentColor;
 }
 .status--open { color: var(--aberto); }
-.status--prize { color: var(--ouro-texto); }
+.status--prize,
+.status--few { color: var(--ouro-texto); }
 
 .fixture__cta {
   font-size: .9375rem;
@@ -1143,6 +1193,174 @@ p { text-wrap: pretty; }
   .gallery__item--feature { grid-row: span 2; }
   /* com duas colunas a última foto ficaria sozinha: ela fecha a grade na largura toda */
   .gallery__item:last-child { grid-column: 1 / -1; }
+}
+
+/* ---------- Produtos ---------- */
+
+/* os produtos têm o mesmo peso: colunas iguais. Preço, tamanho e pedido ficam na base
+   de cada coluna e se alinham com os vizinhos, mesmo com descrições de alturas diferentes */
+.products {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 3rem clamp(1.25rem, 2.2vw, 2rem);
+}
+
+/* relative: os textos só para leitor de tela (absolute) ficam presos no cartão;
+   sem isso, no carrossel do celular eles escapam da rolagem e alargam a página */
+.product {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.product__photo {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: var(--radius);
+  background: var(--branco);
+}
+
+.product__name {
+  margin-top: 1.1rem;
+  font-size: var(--step-1);
+  font-stretch: var(--semi);
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--pinho-900);
+}
+
+.product__desc {
+  margin-top: .3rem;
+  margin-bottom: 1.25rem;
+  font-size: .9375rem;
+  line-height: 1.5;
+  color: var(--liquen);
+}
+
+/* o fio separa a descrição da compra */
+.product__offer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: .25rem 1rem;
+  margin-top: auto;
+  padding-top: .9rem;
+  border-top: 1px solid var(--linha);
+}
+
+/* número condensado, como as datas das competições */
+.product__price {
+  font-size: var(--step--1);
+  font-weight: 600;
+  color: var(--liquen);
+  font-variant-numeric: tabular-nums;
+}
+.product__price span {
+  font-size: 1.875rem;
+  font-stretch: 62%;
+  font-weight: 800;
+  line-height: 1;
+  color: var(--pinho-900);
+}
+
+.product__sizes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .375rem;
+  min-width: 0;
+  margin: .9rem 0 0;
+  padding: 0;
+  border: 0;
+}
+.product__sizes label { position: relative; }
+
+/* o rádio fica invisível por cima do quadrado: o toque cai direto nele */
+.product__sizes input {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+.product__sizes input + span {
+  display: grid;
+  place-items: center;
+  min-width: 2.75rem;
+  height: 2.75rem;
+  padding-inline: .5rem;
+  border: 1px solid var(--linha);
+  border-radius: var(--radius);
+  background: var(--branco);
+  font-size: .9375rem;
+  font-weight: 600;
+  color: var(--pinho-900);
+  transition: background-color .15s, border-color .15s, color .15s;
+}
+.product__sizes input:hover + span { border-color: var(--pinho); }
+.product__sizes input:checked + span {
+  border-color: var(--pinho);
+  background: var(--pinho);
+  color: var(--branco);
+}
+.product__sizes input:focus-visible + span {
+  outline: 2px solid var(--ouro);
+  outline-offset: 2px;
+}
+
+/* tamanho esgotado: riscado na diagonal */
+.product__sizes input:disabled { cursor: not-allowed; }
+.product__sizes input:disabled + span {
+  border-color: var(--linha);
+  background: linear-gradient(to top right, transparent calc(50% - .5px), var(--linha) 0 calc(50% + .5px), transparent 0) var(--geada);
+  color: var(--liquen);
+}
+
+/* sem tamanhos, a linha mantém a altura dos quadrados e o botão alinha com os vizinhos */
+.product__single {
+  display: flex;
+  align-items: center;
+  min-height: 2.75rem;
+  margin-top: .9rem;
+  font-size: .9375rem;
+  color: var(--liquen);
+}
+
+.product__order {
+  width: 100%;
+  margin-top: .75rem;
+}
+
+/* tablet: duas colunas. A foto quadrada ficaria enorme; a moldura fica mais baixa
+   e a foto, de fundo branco, cabe inteira nela */
+@media (min-width: 720px) and (max-width: 1099px) {
+  .products { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .product__photo { aspect-ratio: 16 / 10; object-fit: contain; }
+}
+
+/* Celular: carrossel de arrastar, como as pistas em "Nossa estrutura" */
+@media (max-width: 719px) {
+  .products {
+    display: flex;
+    gap: 1rem;
+    margin-inline: calc(var(--gutter) * -1);
+    /* embaixo, espaço para o contorno de foco do botão, que a rolagem cortaria */
+    padding: 0 var(--gutter) .375rem;
+    scroll-padding-inline: var(--gutter);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+  }
+  .products::-webkit-scrollbar { display: none; }
+  .product {
+    flex: 0 0 78%;
+    scroll-snap-align: start;
+  }
 }
 
 /* ---------- Contato ---------- */
