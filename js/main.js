@@ -59,6 +59,42 @@ document.addEventListener('DOMContentLoaded', () => {
     update();
   });
 
+  // Entrada das seções ao rolar: cada grupo sobe e aparece, com os itens em sequência.
+  // Os carrosséis do celular entram de uma vez: os cartões fora da tela nunca cruzariam a janela.
+  const motion = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (motion && 'IntersectionObserver' in window) {
+    const groups = [
+      ['.section-head', ':scope > *'],
+      ['.fixture', null],
+      ['.join__grid', '.join__path'],
+      ['.about', ':scope > *'],
+      ['.ranges', '.range'],
+      ['.news', '.story'],
+      ['.products', '.product'],
+      ['.gallery', '.gallery__item'],
+      ['.contact', ':scope > *'],
+    ];
+
+    const reveal = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.revealItems.forEach((item) => item.classList.add('is-visible'));
+        reveal.unobserve(entry.target);
+      });
+    }, { rootMargin: '0px 0px -12% 0px' });
+
+    groups.forEach(([group, items]) => {
+      document.querySelectorAll(group).forEach((el) => {
+        el.revealItems = items ? [...el.querySelectorAll(items)] : [el];
+        el.revealItems.forEach((item, i) => {
+          item.classList.add('reveal');
+          item.style.setProperty('--reveal-i', Math.min(i, 5));
+        });
+        reveal.observe(el);
+      });
+    });
+  }
+
   // Destaca no menu a seção visível
   const targets = navLinks
     .map((link) => ({ link, section: document.querySelector(link.getAttribute('href')) }))

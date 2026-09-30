@@ -568,6 +568,19 @@ p { text-wrap: pretty; }
 @keyframes ridge { from { transform: translateY(24px); } }
 @keyframes ridge-far { from { transform: translateY(40px); } }
 
+/* entrada das seções ao rolar (main.js marca os itens com .reveal): sobem um pouco e
+   aparecem, em sequência dentro de cada grupo. Discreta, para não competir com o hero */
+@media (prefers-reduced-motion: no-preference) {
+  .reveal {
+    transition: opacity .7s var(--ease), transform .7s var(--ease);
+    transition-delay: calc(var(--reveal-i, 0) * 90ms);
+  }
+  .reveal:not(.is-visible) { opacity: 0; transform: translateY(1.25rem); }
+  /* as fotos da galeria assentam como a do hero */
+  .gallery__item.reveal img { transition: transform 1.2s var(--ease); transition-delay: inherit; }
+  .gallery__item.reveal:not(.is-visible) img { transform: scale(1.08); }
+}
+
 /* Tablet: a foto continua ao lado; o botão do evento desce para a linha de baixo */
 @media (max-width: 899px) {
   .next-event { grid-template-columns: auto minmax(0, 1fr); }

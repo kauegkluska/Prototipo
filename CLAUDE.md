@@ -81,7 +81,7 @@ O site é estático: HTML, CSS e JS puros, sem build, framework ou dependências
 - **Ícones:** sprite SVG inline no topo do `index.html`, usado com `<svg class="icon"><use href="#i-nome"/></svg>`.
 - **Classes:** no estilo BEM (`bloco__elemento--variante`). Os comentários do CSS são em português, curtos, e explicam o porquê.
 - **Elemento marcante:** a serra no fim do hero é o único momento ousado da página. Não repetir a serra (nem outros divisores de seção) no rodapé ou em outras faixas.
-- **Movimento:** uma única entrada animada, no hero (a serra sobe junto), que respeita `prefers-reduced-motion`. Não espalhar animações nas outras seções.
+- **Movimento:** a entrada animada do hero (a serra sobe junto) e, a pedido do usuário, uma entrada discreta das outras seções ao rolar: o `main.js` marca os itens de cada grupo com `.reveal` (títulos de seção, provas, caminhos da faixa, estrutura, pistas, notícias, produtos, galeria e contato), e eles sobem 1,25rem e aparecem em sequência (90ms entre um e outro); as fotos da galeria assentam com um zoom leve, como a do hero. Tudo respeita `prefers-reduced-motion`, e sem JavaScript nada fica escondido. Manter simples: nada de efeitos exagerados ou animações em loop.
 - **Responsivo:** os pontos de quebra usados são 1279 (só o menu do cabeçalho), 1099, 899, 719, 639 e 479px. Todo layout novo precisa funcionar em 390px, sem rolagem lateral.
   - O menu completo, com a marca e a "Área do atleta", precisa de uns 1160px, e abaixo de 1280px recolhe no botão de menu. Um item novo no menu pede medir de novo.
 
